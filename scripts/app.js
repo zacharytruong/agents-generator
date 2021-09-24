@@ -5,14 +5,18 @@ const btn1 = document.getElementById('btn1');
 const btn2 = document.getElementById('btn2');
 const btn3 = document.getElementById('btn3');
 const btn4 = document.getElementById('btn4');
+const btn5 = document.getElementById('btn5');
+const btn6 = document.getElementById('btn6');
 const agentName = document.getElementById('agentName');
 const agentFullName = agentName.value.split(' ');
 let para1 = document.getElementById('first-content');
 
 btn1.onclick = addAgent;
-btn2.onclick = createXML;
+btn2.onclick = createCombinedXML;
 btn3.onclick = listAllAgents;
 btn4.onclick = clear;
+btn5.onclick = createMemberXML;
+btn6.onclick = createCAPPXML;
 
 
 /* Reset the agents list array */
@@ -29,7 +33,58 @@ function listAllAgents(){
 }
 
 /* Generate XML file */
-function createXML(){
+function createCombinedXML(){
+    let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0"
+        xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+        xmlns:content="http://purl.org/rss/1.0/modules/content/"
+        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:wp="http://wordpress.org/export/1.2/"
+    >
+    
+    <channel>
+        <title>deasy penner podley</title>
+        <link>https://dppre.wpengine.com</link>
+        <description>home as art ®</description>
+        <pubDate>Thu, 23 Sep 2021 18:52:03 +0000</pubDate>
+        <language>en-US</language>
+        <wp:wxr_version>1.2</wp:wxr_version>
+        <wp:base_site_url>https://dppre.wpengine.com/</wp:base_site_url>
+        <wp:base_blog_url>https://dppre.wpengine.com</wp:base_blog_url>
+        <generator>https://wordpress.org/?v=5.7.2</generator>
+        ${agentsList.map(agent => agent.memberpage).join(',')}
+        ${agentsList.map(agent => agent.data).join(',')}
+    </channel>
+    </rss>`;
+    download('agents.xml', xmlRSS);
+}
+function createMemberXML(){
+    let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0"
+        xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+        xmlns:content="http://purl.org/rss/1.0/modules/content/"
+        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:wp="http://wordpress.org/export/1.2/"
+    >
+    
+    <channel>
+        <title>deasy penner podley</title>
+        <link>https://dppre.wpengine.com</link>
+        <description>home as art ®</description>
+        <pubDate>Thu, 23 Sep 2021 18:52:03 +0000</pubDate>
+        <language>en-US</language>
+        <wp:wxr_version>1.2</wp:wxr_version>
+        <wp:base_site_url>https://dppre.wpengine.com/</wp:base_site_url>
+        <wp:base_blog_url>https://dppre.wpengine.com</wp:base_blog_url>
+        <generator>https://wordpress.org/?v=5.7.2</generator>
+        ${agentsList.map(agent => agent.memberpage).join(',')}
+    </channel>
+    </rss>`;
+    download('member-profiles.xml', xmlRSS);
+}
+function createCAPPXML(){
     let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0"
         xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
@@ -70,12 +125,288 @@ function download(filename, text) {
 }
 
 /* Add agent to the agent list array */
-function addAgent(name, data){
+function addAgent(name, data, memberpage){
     let agent = {
         name,
         data,
+        memberpage,
     }
     agent.name = agentName.value;
+    agent.memberpage = `<item>
+    <title><![CDATA[${agentName.value}]]></title>
+    <link>https://dppre.wpengine.com/members/andrea-barrett/</link>
+    <pubDate>Fri, 24 Sep 2021 02:29:49 +0000</pubDate>
+    <dc:creator><![CDATA[zachary.truong]]></dc:creator>
+    <description></description>
+    <content:encoded><![CDATA[<!-- wp:paragraph -->
+<p>Re-Designing the Real Estate Experience</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>As a lifelong resident of Sierra Madre, ${agentName.value} serves clients all along the Foothill Communities. Andrea brings a depth of knowledge and experience to her clients along with a passion to make their experience one that they would recommend to their friends and family. Her meticulous attention to detail coupled with warmth and personal skills create the perfect balance for a mutually rewarding experience. As a full time agent, Andrea prides herself on providing each and every client with the focus, discretion, and integrity that her clients have come to appreciate and expect.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Andrea has been in the Real Estate industry since 2008, prior to that she was an Interior Designer for over 23 years, often assisting other Real Estate agents with staging. Andrea is a member Arcadia Association of Realtors, member California Association of Realtors member, and National Association of Realtors. She has been married to her husband Mark for 27 years and they have two wonderful boys, Jordan and Drew.</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+    <excerpt:encoded><![CDATA[]]></excerpt:encoded><wp:post_date><![CDATA[2021-09-24 02:29:49]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2021-09-24 02:29:49]]></wp:post_date_gmt>
+    <wp:post_modified><![CDATA[2021-09-24 02:34:03]]></wp:post_modified>
+    <wp:post_modified_gmt><![CDATA[2021-09-24 02:34:03]]></wp:post_modified_gmt>
+    <wp:comment_status><![CDATA[open]]></wp:comment_status>
+    <wp:ping_status><![CDATA[open]]></wp:ping_status>
+    <wp:post_name><![CDATA[${agentName.value}]]></wp:post_name>
+    <wp:status><![CDATA[draft]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[member]]></wp:post_type>
+    <wp:post_password><![CDATA[]]></wp:post_password>
+    <wp:is_sticky>0</wp:is_sticky>
+                                                    <wp:postmeta>
+    <wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1046]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
+    <wp:meta_value><![CDATA[12]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[position]]></wp:meta_key>
+    <wp:meta_value><![CDATA[Partner]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_position]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5dec44bec301f]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[email]]></wp:meta_key>
+    <wp:meta_value><![CDATA[abarrett@dppre.com]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_email]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5df2b66cca832]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[dre]]></wp:meta_key>
+    <wp:meta_value><![CDATA[01887447]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_dre]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5dec44bec2fc2]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[phone_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_phone_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5df2b663ca831]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[mobile_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[626-390-3017]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_mobile_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7dda90cce]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[office_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_office_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7dea90ccf]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[fax_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_fax_number]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7df790cd0]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[linkedin_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_linkedin_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e1090cd1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[facebook_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_facebook_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e1590cd2]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[zillow_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_zillow_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e2390cd3]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[instagram_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_instagram_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e3290cd4]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[twitter_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_twitter_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e3990cd5]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[youtube_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_youtube_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e4b90cd6]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[yelp_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_yelp_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5f750c4d40375]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[realtor_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_realtor_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5f750ccb76228]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[homelight_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_homelight_url]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5f750cea76229]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[language]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_language]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e5e7e5690cd7]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[show_contact_button]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_show_contact_button]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e0f84830d14c]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[contact_form]]></wp:meta_key>
+    <wp:meta_value><![CDATA[2]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_contact_form]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5ee7e04b1d2bf]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[show_schedule_button]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_show_schedule_button]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e0f848f0d14d]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[partner_agent]]></wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_partner_agent]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e4c86165d6ad]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[is_clickable]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_is_clickable]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_5e84f219d7a12]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[logo]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_logo]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_60775996ac37b]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[footer_logo]]></wp:meta_key>
+    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_footer_logo]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_60775a88ac37d]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[mls_ids]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_mls_ids]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_608b7e58a7260]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[agent_past_sales]]></wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_agent_past_sales]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_61154b7f7061a]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_yoast_wpseo_content_score]]></wp:meta_key>
+    <wp:meta_value><![CDATA[30]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_yoast_wpseo_estimated-reading-time-minutes]]></wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[mls_ids_0_market]]></wp:meta_key>
+    <wp:meta_value><![CDATA[crmls]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_mls_ids_0_market]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_608b7f16a7261]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[mls_ids_0_agent_ids]]></wp:meta_key>
+    <wp:meta_value><![CDATA[A39148]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_mls_ids_0_agent_ids]]></wp:meta_key>
+    <wp:meta_value><![CDATA[field_608b8095a7262]]></wp:meta_value>
+    </wp:postmeta>
+                        <wp:postmeta>
+    <wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
+    <wp:meta_value><![CDATA[andrea-h-barrett]]></wp:meta_value>
+    </wp:postmeta>
+</item>`;    
     agent.data = `<item>
     <title><![CDATA[${agentName.value}]]></title>
     <pubDate>Mon, 19 Jul 2021 20:05:07 +0000</pubDate>
