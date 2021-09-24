@@ -18,7 +18,6 @@ btn4.onclick = clear;
 btn5.onclick = createMemberXML;
 btn6.onclick = createCAPPXML;
 
-
 /* Reset the agents list array */
 function clear(){
     para1.innerHTML = '';
