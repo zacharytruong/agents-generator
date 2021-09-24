@@ -1,0 +1,50 @@
+html {
+    min-height: 100vh;
+    background-image: url(./../resources/background-3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+.card {
+    text-align: center;
+    color: #FFF;
+    margin: 20px auto;
+    padding: 30px;
+    background: rgba( 255, 255, 255, 0.2 );
+    box-shadow: 0 4px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8px );
+    -webkit-backdrop-filter: blur( 8px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.container {    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 700px;
+    margin: 20px auto;
+    min-height: calc(100vh - 40px);
+}
+form label span{
+    color: #000;
+}
+button {
+    color: #FFF;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #000;
+    border: none;
+    text-align: center;
+}
+button:hover {
+    color: #000;
+    background-color: #FFF;
+    cursor: pointer;
+    transition: 500ms;
+}
+button:active{
+    transform: translateY(5px);
+    transition: 100ms;
+}
+.form-input {
+    margin: 20px;
+}
