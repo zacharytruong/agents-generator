@@ -5,20 +5,29 @@ const btn1 = document.getElementById('btn1');
 const btn2 = document.getElementById('btn2');
 const btn3 = document.getElementById('btn3');
 const btn4 = document.getElementById('btn4');
-let para1 = document.getElementById('demo1');
 const agentName = document.getElementById('agentName');
 const agentFullName = agentName.value.split(' ');
+let para1 = document.getElementById('first-content');
 
 btn1.onclick = addAgent;
-
 btn2.onclick = createXML;
-
+btn3.onclick = listAllAgents;
 btn4.onclick = clear;
+
 
 /* Reset the agents list array */
 function clear(){
+    para1.innerHTML = '';
     agentsList = [];
 }
+
+/* List all agents in the existing array */
+function listAllAgents(){
+    agentsList.forEach(agent => {
+        para1.innerHTML += `<li>${agent.name}</li>`;
+    })
+}
+
 /* Generate XML file */
 function createXML(){
     let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -40,7 +49,7 @@ function createXML(){
         <wp:base_site_url>https://dppre.wpengine.com/</wp:base_site_url>
         <wp:base_blog_url>https://dppre.wpengine.com</wp:base_blog_url>
         <generator>https://wordpress.org/?v=5.7.2</generator>
-        ${agentsList.join('')}	
+        ${agentsList.map(agent => agent.data).join(',')}
     </channel>
     </rss>`;
     download('member-profiles.xml', xmlRSS);
@@ -60,24 +69,22 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-
-
 /* Add agent to the agent list array */
-function addAgent(){
+function addAgent(name, data){
     let agent = {
-        agentNameObj: '',
-        agentRawData: '',
-    };
-    agent.agentNameObj = agentName.value;
-    agent.agentRawData = `<item>
+        name,
+        data,
+    }
+    agent.name = agentName.value;
+    agent.data = `<item>
     <title><![CDATA[${agentName.value}]]></title>
     <pubDate>Mon, 19 Jul 2021 20:05:07 +0000</pubDate>
     <dc:creator><![CDATA[zachary.truong]]></dc:creator>
     <description></description>
     <content:encoded><![CDATA[<!-- wp:acf/block-callout-block {
-    "id": "block_60f5d927f4768",
-    "name": "acf\/block-callout-block",
-    "data": {
+"id": "block_60f5d927f4768",
+"name": "acf\/block-callout-block",
+"data": {
     "header": "${agentName.value}",
     "_header": "field_5e0f4a7e86613",
     "sub": "Vice President | Founding Partner | Director of Operations",
@@ -110,22 +117,22 @@ function addAgent(){
     "_member": "field_5f10a6c9c288d",
     "confirmation_behaviour": "Default Confirmation Message",
     "_confirmation_behaviour": "field_5f12157bbfa9c"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-team-member-block {
-    "id": "block_60f5d927f4769",
-    "name": "acf\/block-team-member-block",
-    "align": "",
-    "mode": "preview"
-    } /-->
+<!-- wp:acf/block-team-member-block {
+"id": "block_60f5d927f4769",
+"name": "acf\/block-team-member-block",
+"align": "",
+"mode": "preview"
+} /-->
 
-    <!-- wp:acf/block-section-head {
-    "id": "block_60f5d927f476d",
-    "name": "acf\/block-section-head",
-    "data": {
+<!-- wp:acf/block-section-head {
+"id": "block_60f5d927f476d",
+"name": "acf\/block-section-head",
+"data": {
     "section_title": "My Listings",
     "_section_title": "field_5dec10001f528",
     "title_heading_size": "large",
@@ -134,26 +141,26 @@ function addAgent(){
     "_show_colored_line": "field_5e6006f36dddf",
     "section_subtitle": "",
     "_section_subtitle": "field_5dec10081f529"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-home-junction-block {
-    "id": "block_60f5d927f476e",
-    "name": "acf\/block-home-junction-block",
-    "data": {
+<!-- wp:acf/block-home-junction-block {
+"id": "block_60f5d927f476e",
+"name": "acf\/block-home-junction-block",
+"data": {
     "shortcode": "[listings market=\"crmls\" agentId=\"CLW-x70481\" listingType=\"residential\" sortfield=\"daysOnHJI\" sortorder=\"asc\" pageSize=\"16\" grid_size=\"0\" map=\"0\" pagination=\"1\"]",
     "_shortcode": "field_5ebe3e373e5d6"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-section-head {
-    "id": "block_61395a911bf03",
-    "name": "acf\/block-section-head",
-    "data": {
+<!-- wp:acf/block-section-head {
+"id": "block_61395a911bf03",
+"name": "acf\/block-section-head",
+"data": {
     "section_title": "Past Sales",
     "_section_title": "field_5dec10001f528",
     "title_heading_size": "large",
@@ -162,26 +169,26 @@ function addAgent(){
     "_show_colored_line": "field_5e6006f36dddf",
     "section_subtitle": "",
     "_section_subtitle": "field_5dec10081f529"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-home-junction-block {
-    "id": "block_61395a9c1bf04",
-    "name": "acf\/block-home-junction-block",
-    "data": {
+<!-- wp:acf/block-home-junction-block {
+"id": "block_61395a9c1bf04",
+"name": "acf\/block-home-junction-block",
+"data": {
     "shortcode": "<div data-pm-slice=\"1 1 []\" data-en-clipboard=\"true\">[past_sales market=\"crmls\" agentId=\"CLW-X70481\" sortfield=\"offMarketDate\" sortorder=\"desc\" pageSize=\"8\" grid_size=\"4\" map=\"0\" pagination=\"1\"]<\/div>",
     "_shortcode": "field_5ebe3e373e5d6"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-stat-block {
-    "id": "block_60f5d927f476a",
-    "name": "acf\/block-stat-block",
-    "data": {
+<!-- wp:acf/block-stat-block {
+"id": "block_60f5d927f476a",
+"name": "acf\/block-stat-block",
+"data": {
     "has_title": "1",
     "_has_title": "field_5e18937f3e93a",
     "section_title": "Highlights",
@@ -202,30 +209,30 @@ function addAgent(){
     "_items_2_number": "field_5dc55d966245f",
     "items": 3,
     "_items": "field_5dc55d6c6245c"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-testimonials-large {
-    "id": "block_60f5d927f476b",
-    "name": "acf\/block-testimonials-large",
-    "data": {
+<!-- wp:acf/block-testimonials-large {
+"id": "block_60f5d927f476b",
+"name": "acf\/block-testimonials-large",
+"data": {
     "items": [
         "75",
         "407",
         "408"
     ],
     "_items": "field_5dd46222099ce"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:acf/block-cards {
-    "id": "block_60f5d927f476c",
-    "name": "acf\/block-cards",
-    "data": {
+<!-- wp:acf/block-cards {
+"id": "block_60f5d927f476c",
+"name": "acf\/block-cards",
+"data": {
     "title": "Achievements",
     "_title": "field_6030498934b30",
     "card_0_image": 410,
@@ -254,19 +261,19 @@ function addAgent(){
     "_card_2_title": "field_60304a7334b34",
     "card": 3,
     "_card": "field_603049a234b31"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->
+},
+"align": "",
+"mode": "edit"
+} /-->
 
-    <!-- wp:block {"ref":871} /-->
+<!-- wp:block {"ref":871} /-->
 
-    <!-- wp:block {"ref":873} /-->
+<!-- wp:block {"ref":873} /-->
 
-    <!-- wp:acf/block-callout-block {
-    "id": "block_60f5d927f4770",
-    "name": "acf\/block-callout-block",
-    "data": {
+<!-- wp:acf/block-callout-block {
+"id": "block_60f5d927f4770",
+"name": "acf\/block-callout-block",
+"data": {
     "header": "Let's Connect",
     "_header": "field_5e0f4a7e86613",
     "sub": "You've got questions and we can't wait to answer them.",
@@ -299,10 +306,10 @@ function addAgent(){
     "_member": "field_5f10a6c9c288d",
     "confirmation_behaviour": "Default Confirmation Message",
     "_confirmation_behaviour": "field_5f12157bbfa9c"
-    },
-    "align": "",
-    "mode": "edit"
-    } /-->]]></content:encoded>
+},
+"align": "",
+"mode": "edit"
+} /-->]]></content:encoded>
     <excerpt:encoded><![CDATA[]]></excerpt:encoded>
     <wp:post_date><![CDATA[2021-07-19 20:05:07]]></wp:post_date>
     <wp:post_date_gmt><![CDATA[2021-07-19 20:05:07]]></wp:post_date_gmt>
@@ -328,10 +335,8 @@ function addAgent(){
     <wp:meta_key><![CDATA[_member]]></wp:meta_key>
     <wp:meta_value><![CDATA[field_602eb38401286]]></wp:meta_value>
     </wp:postmeta>
-    </item>`;
+</item>`;
     agentName.value = '';
     return agentsList.push(agent);
-    
 }
-
 
