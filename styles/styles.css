@@ -1,17 +1,10 @@
 html {
     min-height: 100vh;
-    /* Using reversed Witching Hour gradient https://uigradients.com/#WitchingHour*/
-    background: #c31432;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-    /*
-    background-image: url(./../resources/smart-background.jpg);
+    background-image: url(./../resources/halloween.jpg);
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;
-    */
+    
     }
 .card {
     text-align: center;
@@ -34,19 +27,19 @@ html {
     min-height: calc(100vh - 40px);
 }
 form label span{
-    color: #000;
+    color: #FFF;
 }
 button {
-    color: #FFF;
     padding: 10px 20px;
     margin: 10px;
-    background: linear-gradient(to right, #240b36, #c31432);
-    border: none;
-    border-radius: 5px;
     text-align: center;
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #000;
 }
 button:hover {
-    background: linear-gradient(to right, #c31432, #240b36);
+    background-color: #000;
+    color: #FFF;
     cursor: pointer;
     transition: 500ms;
 }
@@ -58,5 +51,6 @@ button:active{
     margin: 20px;
 }
 #first-content {
-    color: #000;
+    color: #FFF;
+    list-style: inside
 }

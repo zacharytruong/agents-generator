@@ -27,9 +27,11 @@ function clear(){
 
 /* List all agents in the existing array */
 function listAllAgents(){
+    para1.innerHTML = '';
     agentsList.forEach(agent => {
         para1.innerHTML += `<li>${agent.name}</li>`;
     })
+    para1.innerHTML = '<ol>' + para1.innerHTML + '</ol>';
 }
 
 /* Generate XML file */
@@ -58,6 +60,7 @@ function createCombinedXML(){
     </channel>
     </rss>`;
     download('agents.xml', xmlRSS);
+    clear();
 }
 function createMemberXML(){
     let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -83,6 +86,7 @@ function createMemberXML(){
     </channel>
     </rss>`;
     download('member-profiles.xml', xmlRSS);
+    clear();
 }
 function createCAPPXML(){
     let xmlRSS = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -108,6 +112,7 @@ function createCAPPXML(){
     </channel>
     </rss>`;
     download('member-profiles.xml', xmlRSS);
+    clear();
 }
 
 /* Function to download the generated XML file */
@@ -667,7 +672,7 @@ function addAgent(name, data, memberpage){
     <wp:meta_value><![CDATA[field_602eb38401286]]></wp:meta_value>
     </wp:postmeta>
 </item>`;
+    agentsList.push(agent);
     agentName.value = '';
-    return agentsList.push(agent);
 }
 
