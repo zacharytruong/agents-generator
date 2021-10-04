@@ -8,7 +8,6 @@ const btn4 = document.getElementById('btn4');
 const btn5 = document.getElementById('btn5');
 const btn6 = document.getElementById('btn6');
 const agentName = document.getElementById('agentName');
-const agentFullName = agentName.value.split(' ');
 let para1 = document.getElementById('first-content');
 
 btn1.onclick = addAgent;
@@ -142,17 +141,6 @@ function addAgent(name, data, memberpage){
     <pubDate>Fri, 24 Sep 2021 02:29:49 +0000</pubDate>
     <dc:creator><![CDATA[zachary.truong]]></dc:creator>
     <description></description>
-    <content:encoded><![CDATA[<!-- wp:paragraph -->
-<p>Re-Designing the Real Estate Experience</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>As a lifelong resident of Sierra Madre, ${agentName.value} serves clients all along the Foothill Communities. Andrea brings a depth of knowledge and experience to her clients along with a passion to make their experience one that they would recommend to their friends and family. Her meticulous attention to detail coupled with warmth and personal skills create the perfect balance for a mutually rewarding experience. As a full time agent, Andrea prides herself on providing each and every client with the focus, discretion, and integrity that her clients have come to appreciate and expect.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Andrea has been in the Real Estate industry since 2008, prior to that she was an Interior Designer for over 23 years, often assisting other Real Estate agents with staging. Andrea is a member Arcadia Association of Realtors, member California Association of Realtors member, and National Association of Realtors. She has been married to her husband Mark for 27 years and they have two wonderful boys, Jordan and Drew.</p>
-<!-- /wp:paragraph -->]]></content:encoded>
     <excerpt:encoded><![CDATA[]]></excerpt:encoded><wp:post_date><![CDATA[2021-09-24 02:29:49]]></wp:post_date>
     <wp:post_date_gmt><![CDATA[2021-09-24 02:29:49]]></wp:post_date_gmt>
     <wp:post_modified><![CDATA[2021-09-24 02:34:03]]></wp:post_modified>
@@ -183,10 +171,6 @@ function addAgent(name, data, memberpage){
     <wp:meta_value><![CDATA[field_5dec44bec301f]]></wp:meta_value>
     </wp:postmeta>
                         <wp:postmeta>
-    <wp:meta_key><![CDATA[email]]></wp:meta_key>
-    <wp:meta_value><![CDATA[abarrett@dppre.com]]></wp:meta_value>
-    </wp:postmeta>
-                        <wp:postmeta>
     <wp:meta_key><![CDATA[_email]]></wp:meta_key>
     <wp:meta_value><![CDATA[field_5df2b66cca832]]></wp:meta_value>
     </wp:postmeta>
@@ -205,10 +189,6 @@ function addAgent(name, data, memberpage){
                         <wp:postmeta>
     <wp:meta_key><![CDATA[_phone_number]]></wp:meta_key>
     <wp:meta_value><![CDATA[field_5df2b663ca831]]></wp:meta_value>
-    </wp:postmeta>
-                        <wp:postmeta>
-    <wp:meta_key><![CDATA[mobile_number]]></wp:meta_key>
-    <wp:meta_value><![CDATA[626-390-3017]]></wp:meta_value>
     </wp:postmeta>
                         <wp:postmeta>
     <wp:meta_key><![CDATA[_mobile_number]]></wp:meta_key>
@@ -399,10 +379,6 @@ function addAgent(name, data, memberpage){
     <wp:meta_value><![CDATA[field_608b7f16a7261]]></wp:meta_value>
     </wp:postmeta>
                         <wp:postmeta>
-    <wp:meta_key><![CDATA[mls_ids_0_agent_ids]]></wp:meta_key>
-    <wp:meta_value><![CDATA[A39148]]></wp:meta_value>
-    </wp:postmeta>
-                        <wp:postmeta>
     <wp:meta_key><![CDATA[_mls_ids_0_agent_ids]]></wp:meta_key>
     <wp:meta_value><![CDATA[field_608b8095a7262]]></wp:meta_value>
     </wp:postmeta>
@@ -444,7 +420,7 @@ function addAgent(name, data, memberpage){
     "_button_style": "field_5e187d707743f",
     "form_title": "1",
     "_form_title": "field_5f1214d9bfa9a",
-    "form_title_text": "Contact ${agentFullName[0]}",
+    "form_title_text": "Contact ${agentName.value.split(' ')[0]}",
     "_form_title_text": "field_5f10a2455ff55",
     "form_subtitle": "0",
     "_form_subtitle": "field_5f12152abfa9b",
@@ -633,7 +609,7 @@ function addAgent(name, data, memberpage){
     "_button_style": "field_5e187d707743f",
     "form_title": "1",
     "_form_title": "field_5f1214d9bfa9a",
-    "form_title_text": "Contact ${agentFullName[0]}",
+    "form_title_text": "Contact ${agentName.value.split(' ')[0]}",
     "_form_title_text": "field_5f10a2455ff55",
     "form_subtitle": "0",
     "_form_subtitle": "field_5f12152abfa9b",
